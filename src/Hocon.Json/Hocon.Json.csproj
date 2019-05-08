@@ -2,6 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/iron9light/HOCON.Json</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/iron9light/HOCON.Json</PackageProjectUrl>
+    <Company />
+    <Authors>iron9light@gmail.com</Authors>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>HOCON;JSON</PackageTags>
+    <Description>Convert Lightbend's HOCON (Human-Optimized Object Configuration Notation) to Json</Description>
+    <Copyright>iron9light@gmail.com</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
