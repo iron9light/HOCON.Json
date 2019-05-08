@@ -9,11 +9,21 @@ namespace Hocon.Json
     {
         public static JToken ToJToken(this HoconRoot hoconRoot)
         {
+            if (hoconRoot == null)
+            {
+                throw new ArgumentNullException(nameof(hoconRoot));
+            }
+
             return hoconRoot.Value.ToJToken();
         }
 
         public static JToken ToJToken(this HoconValue hoconValue)
         {
+            if (hoconValue == null)
+            {
+                throw new ArgumentNullException(nameof(hoconValue));
+            }
+
             switch(hoconValue.Type)
             {
                 case HoconType.Object:
@@ -45,6 +55,11 @@ namespace Hocon.Json
 
         public static JObject ToJObject(this HoconObject hoconObject)
         {
+            if (hoconObject == null)
+            {
+                throw new ArgumentNullException(nameof(hoconObject));
+            }
+
             var jObject = new JObject();
             foreach (var hoconField in hoconObject)
             {
@@ -61,6 +76,11 @@ namespace Hocon.Json
 
         public static JArray ToJArray(this List<HoconValue> hoconValues)
         {
+            if (hoconValues == null)
+            {
+                throw new ArgumentNullException(nameof(hoconValues));
+            }
+
             var jArray = new JArray();
             foreach(var hoconValue in hoconValues)
             {
@@ -76,6 +96,11 @@ namespace Hocon.Json
 
         public static JValue ToJValue(this HoconLiteral hoconLiteral)
         {
+            if (hoconLiteral == null)
+            {
+                throw new ArgumentNullException(nameof(hoconLiteral));
+            }
+
             var hoconValue = new HoconValue(null)
             {
                 hoconLiteral
