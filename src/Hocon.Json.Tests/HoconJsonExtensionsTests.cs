@@ -17,8 +17,6 @@ namespace Hocon.Json.Tests
         }
 
         [Theory]
-        //[InlineData("test01")]
-        //[InlineData("test02")]
         [InlineData("test04")]
         [InlineData("test05")]
         [InlineData("test06")]

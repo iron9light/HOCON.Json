@@ -17,12 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="data\test01.conf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="data\test02.conf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="data\test04.conf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
