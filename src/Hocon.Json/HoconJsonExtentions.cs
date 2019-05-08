@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Linq;
 
 using System;
 using System.Collections.Generic;
@@ -76,10 +76,11 @@ namespace Hocon.Json
 
         public static JValue ToJValue(this HoconLiteral hoconLiteral)
         {
-            var hoconValue = new HoconValue(null);
-            hoconValue.Add(hoconLiteral);
-            var str = hoconLiteral.GetString();
-            switch(hoconLiteral.LiteralType)
+            var hoconValue = new HoconValue(null)
+            {
+                hoconLiteral
+            };
+            switch (hoconLiteral.LiteralType)
             {
                 case HoconLiteralType.Null:
                     return JValue.CreateNull();
@@ -87,7 +88,7 @@ namespace Hocon.Json
                 case HoconLiteralType.UnquotedString:
                 case HoconLiteralType.QuotedString:
                 case HoconLiteralType.TripleQuotedString:
-                    return JValue.CreateString(str);
+                    return JValue.CreateString(hoconValue.GetString());
                 case HoconLiteralType.Bool:
                     return new JValue(hoconValue.GetBoolean());
                 case HoconLiteralType.Long:
