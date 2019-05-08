@@ -1,0 +1,40 @@
+{
+  "application": {
+    "name": "Yet Another Blog Engine",
+    "mode": "dev",
+    "secret": "s1kwayg211q9v4387pvarbmyqnht7hrl54d34lsz0yh9btb117br293a25trz31o",
+    "log": "INFO"
+  },
+  "blog": {
+    "title": "Yet another blog",
+    "baseline": "We will write about nothing"
+  },
+  "%prod": {
+    "application": {
+      "mode": "prod"
+    }
+  },
+  "module": {
+    "crud": "/modules/crud",
+    "secure": "/modules/secure"
+  },
+  "db": "mem",
+  "jpa": {
+    "ddl": "update"
+  },
+  "mail": {
+    "smtp": "mock"
+  },
+  "%test": {
+    "application": {
+      "mode": "dev"
+    },
+    "db": "mem",
+    "jpa": {
+      "ddl": "create-drop"
+    },
+    "mail": {
+      "smtp": "mock"
+    }
+  }
+}

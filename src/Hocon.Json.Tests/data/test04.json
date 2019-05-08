@@ -1,0 +1,172 @@
+{
+  "akka": {
+    "version": "2.0-SNAPSHOT",
+    "enabled-modules": [],
+    "time-unit": "seconds",
+    "event-handlers": [
+      "akka.event.Logging$DefaultLogger"
+    ],
+    "loglevel": "WARNING",
+    "stdout-loglevel": "WARNING",
+    "event-handler-dispatcher": {
+      "type": "Dispatcher",
+      "name": "EventHandlerDispatcher",
+      "keep-alive-time": 60,
+      "core-pool-size": 1,
+      "max-pool-size": 8,
+      "executor-bounds": -1,
+      "task-queue-size": -1,
+      "task-queue-type": "linked",
+      "allow-core-timeout": true,
+      "rejection-policy": "caller-runs",
+      "throughput": 5,
+      "throughput-deadline-time": -1,
+      "mailbox-capacity": -1,
+      "mailbox-push-timeout-time": 10
+    },
+    "boot": [],
+    "actor": {
+      "timeout": 5,
+      "serialize-messages": false,
+      "throughput": 5,
+      "throughput-deadline-time": -1,
+      "dispatcher-shutdown-timeout": 1,
+      "deployment": {
+        "/app/service-ping": {
+          "router": "round-robin",
+          "nr-of-instances": 3,
+          "remote": {
+            "nodes": [
+              "wallace:2552",
+              "gromit:2552"
+            ]
+          }
+        }
+      },
+      "default-dispatcher": {
+        "type": "Dispatcher",
+        "name": "MyDispatcher",
+        "keep-alive-time": 60,
+        "core-pool-size-factor": 8.0,
+        "max-pool-size-factor": 8.0,
+        "executor-bounds": -1,
+        "task-queue-size": -1,
+        "task-queue-type": "linked",
+        "allow-core-timeout": true,
+        "rejection-policy": "caller-runs",
+        "throughput": 5,
+        "throughput-deadline-time": -1,
+        "mailbox-capacity": -1,
+        "mailbox-push-timeout-time": 10
+      },
+      "debug": {
+        "receive": false,
+        "autoreceive": false,
+        "lifecycle": false
+      },
+      "mailbox": {
+        "file-based": {
+          "directory-path": "./_mb",
+          "max-items": 2147483647,
+          "max-size": 2147483647,
+          "max-age": 0,
+          "max-journal-size": 16777216,
+          "max-memory-size": 134217728,
+          "max-journal-overflow": 10,
+          "max-journal-size-absolute": 9223372036854775807,
+          "discard-old-when-full": true,
+          "keep-journal": true,
+          "sync-journal": false
+        },
+        "redis": {
+          "hostname": "127.0.0.1",
+          "port": 6379
+        },
+        "mongodb": {
+          "uri": "mongodb://localhost/akka.mailbox",
+          "timeout": {
+            "read": 3000,
+            "write": 3000
+          }
+        },
+        "zookeeper": {
+          "server-addresses": "localhost:2181",
+          "session-timeout": 60,
+          "connection-timeout": 60,
+          "blocking-queue": true
+        },
+        "beanstalk": {
+          "hostname": "127.0.0.1",
+          "port": 11300,
+          "reconnect-window": 5,
+          "message-submit-delay": 0,
+          "message-submit-timeout": 5,
+          "message-time-to-live": 120
+        }
+      }
+    },
+    "remote": {
+      "layer": "akka.cluster.netty.NettyRemoteSupport",
+      "secure-cookie": "",
+      "remote-daemon-ack-timeout": 30,
+      "use-passive-connections": true,
+      "failure-detector": {
+        "threshold": 8,
+        "max-sample-size": 1000
+      },
+      "server": {
+        "port": 2552,
+        "message-frame-size": 1048576,
+        "connection-timeout": 120,
+        "require-cookie": false,
+        "untrusted-mode": false,
+        "backlog": 4096
+      },
+      "client": {
+        "buffering": {
+          "retry-message-send-on-failure": false,
+          "capacity": -1
+        },
+        "reconnect-delay": 5,
+        "read-timeout": 3600,
+        "message-frame-size": 1048576,
+        "reap-futures-delay": 5,
+        "reconnection-time-window": 600
+      }
+    },
+    "cluster": {
+      "name": "test-cluster",
+      "zookeeper-server-addresses": "localhost:2181",
+      "max-time-to-wait-until-connected": 30,
+      "session-timeout": 60,
+      "connection-timeout": 60,
+      "include-ref-node-in-replica-set": true,
+      "log-directory": "_akka_cluster",
+      "replication": {
+        "digest-type": "MAC",
+        "password": "secret",
+        "ensemble-size": 3,
+        "quorum-size": 2,
+        "snapshot-frequency": 1000,
+        "timeout": 30
+      }
+    },
+    "stm": {
+      "fair": true,
+      "max-retries": 1000,
+      "timeout": 5,
+      "write-skew": true,
+      "blocking-allowed": false,
+      "interruptible": false,
+      "speculative": true,
+      "quick-release": true,
+      "propagation": "requires",
+      "trace-level": "none"
+    },
+    "test": {
+      "timefactor": "1.0",
+      "filter-leeway": 3,
+      "single-expect-default": 3
+    }
+  }
+}
