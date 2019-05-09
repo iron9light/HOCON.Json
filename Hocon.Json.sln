@@ -5,7 +5,16 @@ VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hocon.Json", "src\Hocon.Json\Hocon.Json.csproj", "{387A19A1-842F-4048-91F6-09F37ABBA69F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hocon.Json.Tests", "src\Hocon.Json.Tests\Hocon.Json.Tests.csproj", "{642CA221-C030-4C2A-9F54-7C04C96EA95E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hocon.Json.Tests", "src\Hocon.Json.Tests\Hocon.Json.Tests.csproj", "{642CA221-C030-4C2A-9F54-7C04C96EA95E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F6E59447-473E-4D16-9B20-BE1D679B4D8D}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		azure-pipelines.yml = azure-pipelines.yml
+		Directory.Build.props = Directory.Build.props
+		README.md = README.md
+		version.json = version.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
