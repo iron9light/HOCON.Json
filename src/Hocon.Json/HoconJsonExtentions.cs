@@ -7,7 +7,7 @@ namespace Hocon.Json
 {
     public static class HoconJsonExtentions
     {
-        public static JToken ToJToken(this HoconRoot hoconRoot)
+        public static JToken? ToJToken(this HoconRoot hoconRoot)
         {
             if (hoconRoot == null)
             {
@@ -17,7 +17,7 @@ namespace Hocon.Json
             return hoconRoot.Value.ToJToken();
         }
 
-        public static JToken ToJToken(this HoconValue hoconValue)
+        public static JToken? ToJToken(this HoconValue hoconValue)
         {
             if (hoconValue == null)
             {

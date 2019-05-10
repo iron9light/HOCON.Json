@@ -28,7 +28,8 @@ namespace Hocon.Json.Tests
             var hoconPath = $@"data\{name}.conf";
             var hoconRoot = Parser.Parse(File.ReadAllText(hoconPath));
             var jToken = hoconRoot.ToJToken();
-            var json = jToken.ToString(Newtonsoft.Json.Formatting.Indented);
+            Assert.NotNull(jToken);
+            var json = jToken!.ToString(Newtonsoft.Json.Formatting.Indented);
             _output.WriteLine(json);
 
             var jsonPath = $@"data\{name}.json";
