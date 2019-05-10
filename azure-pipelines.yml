@@ -19,6 +19,12 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+- task: UseDotNet@2
+  displayName: 'Use .NET Core 2.x'
+  inputs:
+    packageType: sdk
+    version: 2.x
+
 - script: dotnet tool install --tool-path . nbgv
   displayName: 'Install NBGV tool'
 
