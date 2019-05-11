@@ -48,7 +48,7 @@ steps:
   displayName: 'dotnet test $(buildConfiguration)'
   inputs:
     command: test
-    projects: '**/*Tests/*.csproj'
+    projects: '**/*Tests.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
 - task: PublishBuildArtifacts@1
