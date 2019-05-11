@@ -35,14 +35,14 @@ steps:
   displayName: 'dotnet build $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
+  displayName: Pack
   inputs:
     command: pack
-    packagesToPack: src/Hocon.Json/Hocon.Json.csproj
+    packagesToPack: '**/*.csproj'
     configuration: $(BuildConfiguration)
     packDirectory: $(Build.ArtifactStagingDirectory)\artifacts
     nobuild: true
     verbosityPack: Minimal
-  displayName: Pack
 
 - task: DotNetCoreCLI@2
   displayName: 'dotnet test $(buildConfiguration)'

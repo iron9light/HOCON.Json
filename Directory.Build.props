@@ -6,7 +6,7 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(IsPackable)' == 'true'">
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-18618-05" PrivateAssets="All"/>
   </ItemGroup>
 
