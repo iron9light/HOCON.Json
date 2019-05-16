@@ -1,6 +1,6 @@
-using Newtonsoft.Json.Linq;
-
 using System.IO;
+
+using Newtonsoft.Json.Linq;
 
 using Xunit;
 using Xunit.Abstractions;

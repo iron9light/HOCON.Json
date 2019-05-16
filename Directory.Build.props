@@ -13,4 +13,12 @@
   <ItemGroup>
     <PackageReference Include="Nerdbank.GitVersioning" Version="2.3.151" PrivateAssets="All"/>
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory).ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
 </Project>

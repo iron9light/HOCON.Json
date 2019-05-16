@@ -1,7 +1,7 @@
-using Newtonsoft.Json.Linq;
-
 using System;
 using System.Collections.Generic;
+
+using Newtonsoft.Json.Linq;
 
 namespace Hocon.Json
 {
@@ -24,7 +24,7 @@ namespace Hocon.Json
                 throw new ArgumentNullException(nameof(hoconValue));
             }
 
-            switch(hoconValue.Type)
+            switch (hoconValue.Type)
             {
                 case HoconType.Object:
                     return hoconValue.GetObject().ToJObject();
@@ -46,6 +46,7 @@ namespace Hocon.Json
                     {
                         return JValue.CreateString(hoconValue.GetString());
                     }
+
                 case HoconType.Empty:
                     return null;
                 default:
@@ -82,7 +83,7 @@ namespace Hocon.Json
             }
 
             var jArray = new JArray();
-            foreach(var hoconValue in hoconValues)
+            foreach (var hoconValue in hoconValues)
             {
                 var item = hoconValue.ToJToken();
                 if (item != null)
@@ -103,7 +104,7 @@ namespace Hocon.Json
 
             var hoconValue = new HoconValue(null)
             {
-                hoconLiteral
+                hoconLiteral,
             };
             switch (hoconLiteral.LiteralType)
             {
