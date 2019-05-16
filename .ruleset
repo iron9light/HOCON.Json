@@ -8,10 +8,16 @@
         <Rule Id="SA1101" Action="None" />
         <!-- UsingDirectivesMustBePlacedCorrectly -->
         <Rule Id="SA1200" Action="None" />
+        <!-- ElementsMustBeOrderedByAccess -->
+        <Rule Id="SA1202" Action="None" />
         <!-- FieldNamesMustNotBeginWithUnderscore -->
         <Rule Id="SA1309" Action="None" />
+        <!-- FileMayOnlyContainASingleType -->
+        <Rule Id="SA1402" Action="None" />
         <!-- ElementsMustBeDocumented -->
         <Rule Id="SA1600" Action="None" />
+        <!-- DocumentationTextMustEndWithAPeriod -->
+        <Rule Id="SA1629" Action="None" />
         <!-- FileMustHaveHeader -->
         <Rule Id="SA1633" Action="None" />
     </Rules>
