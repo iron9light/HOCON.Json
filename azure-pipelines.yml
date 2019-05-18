@@ -44,7 +44,7 @@ steps:
   displayName: 'dotnet test $(buildConfiguration)'
   inputs:
     command: test
-    projects: '**/*Tests.csproj'
+    projects: '**/*.sln'
     arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
 
 - script: dotnet-sonarscanner end /d:sonar.login="$(sonar.token)"
