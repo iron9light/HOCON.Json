@@ -33,14 +33,20 @@ namespace Hocon.Json
                 case HoconType.Literal:
                     if (hoconValue.Count == 1)
                     {
-                        if (hoconValue[0] is HoconSubstitution)
+                        var hoconElement = hoconValue[0];
+                        var hoconSubstitution = hoconElement as HoconSubstitution;
+                        if (hoconSubstitution != null)
                         {
-                            return ((HoconSubstitution)hoconValue[0]).ResolvedValue.ToJToken();
+                            return hoconSubstitution.ResolvedValue.ToJToken();
                         }
-                        else
+
+                        var hoconLiteral = hoconElement as HoconLiteral;
+                        if (hoconLiteral != null)
                         {
-                            return ((HoconLiteral)hoconValue[0]).ToJValue();
+                            return hoconLiteral.ToJValue();
                         }
+
+                        throw new InvalidOperationException($"Invalid Hocon element type when hocon type is Literal and has only one element: {hoconElement.GetType().FullName}");
                     }
                     else
                     {
@@ -48,7 +54,9 @@ namespace Hocon.Json
                     }
 
                 case HoconType.Empty:
+#pragma warning disable S1168 // Empty arrays and collections should be returned instead of null
                     return null;
+#pragma warning restore S1168 // Empty arrays and collections should be returned instead of null
                 default:
                     throw new InvalidOperationException($"Unknown Type: {hoconValue.Type}");
             }

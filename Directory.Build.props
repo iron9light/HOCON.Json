@@ -1,5 +1,6 @@
 <Project>
   <PropertyGroup>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <IncludeSymbols>true</IncludeSymbols>
@@ -16,6 +17,7 @@
 
   <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="7.14.0.8411" />
   </ItemGroup>
 
   <PropertyGroup>
