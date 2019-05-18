@@ -34,13 +34,13 @@ steps:
 - script: dotnet tool install --tool-path . dotnet-sonarscanner
   displayName: 'Install SonarScanner tool'
 
-- script: dotnet-sonarscanner begin /k:"iron9light_HOCON.Json" /d:sonar.organization="iron9light-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$(sonar.token)"
+- script: dotnet-sonarscanner begin /k:"iron9light_HOCON.Json" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$(sonar.token)"
   displayName: 'SonarScanner begin'
 
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 
-- script: dotnet-sonarscanner end
+- script: dotnet-sonarscanner end /d:sonar.login="$(sonar.token)"
   displayName: 'SonarScanner end'
 
 - task: DotNetCoreCLI@2
