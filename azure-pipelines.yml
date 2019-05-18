@@ -40,6 +40,13 @@ steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet test $(buildConfiguration)'
+  inputs:
+    command: test
+    projects: '**/*Tests.csproj'
+    arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
+
 - script: dotnet-sonarscanner end /d:sonar.login="$(sonar.token)"
   displayName: 'SonarScanner end'
 
@@ -52,13 +59,6 @@ steps:
     packDirectory: $(Build.ArtifactStagingDirectory)\artifacts
     nobuild: true
     verbosityPack: Minimal
-
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet test $(buildConfiguration)'
-  inputs:
-    command: test
-    projects: '**/*Tests.csproj'
-    arguments: '--configuration $(buildConfiguration)'
 
 - task: PublishBuildArtifacts@1
   displayName: Publish Package Artifacts
