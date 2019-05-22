@@ -45,9 +45,9 @@ steps:
   inputs:
     command: test
     projects: '**/*.sln'
-    arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
+    arguments: '--configuration $(buildConfiguration) --no-build --collect "Code coverage"'
 
-- script: dotnet-sonarscanner end /d:sonar.login="$(sonar.token) /d:sonar.verbose=true"
+- script: dotnet-sonarscanner end /d:sonar.login="$(sonar.token)"
   displayName: 'SonarScanner end'
 
 - task: DotNetCoreCLI@2
