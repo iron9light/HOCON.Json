@@ -34,11 +34,18 @@ steps:
 - script: dotnet tool install --tool-path . dotnet-sonarscanner
   displayName: 'Install SonarScanner tool'
 
-- script: dotnet-sonarscanner begin /k:"iron9light_HOCON.Json" /o:"iron9light-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$(sonar.token)"
+- script: dotnet-sonarscanner begin /k:"iron9light_HOCON.Json" /o:"iron9light-github" /v:"$(Build.BuildNumber)" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$(sonar.token)"
   displayName: 'SonarScanner begin'
 
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet test $(buildConfiguration)'
+  inputs:
+    command: test
+    projects: '**/*.sln'
+    arguments: '--configuration $(buildConfiguration) --no-build --collect "Code coverage"'
 
 - script: dotnet-sonarscanner end /d:sonar.login="$(sonar.token)"
   displayName: 'SonarScanner end'
@@ -52,13 +59,6 @@ steps:
     packDirectory: $(Build.ArtifactStagingDirectory)\artifacts
     nobuild: true
     verbosityPack: Minimal
-
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet test $(buildConfiguration)'
-  inputs:
-    command: test
-    projects: '**/*Tests.csproj'
-    arguments: '--configuration $(buildConfiguration)'
 
 - task: PublishBuildArtifacts@1
   displayName: Publish Package Artifacts
