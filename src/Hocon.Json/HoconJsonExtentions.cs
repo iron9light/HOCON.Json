@@ -7,17 +7,17 @@ namespace Hocon.Json
 {
     public static class HoconJsonExtentions
     {
-        public static JToken? ToJToken(this HoconRoot hoconRoot)
+        public static JToken? ToJToken(this HoconRoot hoconRoot, Func<JValue, JValue>? jValueHandler = null)
         {
             if (hoconRoot == null)
             {
                 throw new ArgumentNullException(nameof(hoconRoot));
             }
 
-            return hoconRoot.Value.ToJToken();
+            return hoconRoot.Value.ToJToken(jValueHandler);
         }
 
-        public static JToken? ToJToken(this HoconValue hoconValue)
+        public static JToken? ToJToken(this HoconValue hoconValue, Func<JValue, JValue>? jValueHandler = null)
         {
             if (hoconValue == null)
             {
@@ -27,30 +27,36 @@ namespace Hocon.Json
             switch (hoconValue.Type)
             {
                 case HoconType.Object:
-                    return hoconValue.GetObject().ToJObject();
+                    return hoconValue.GetObject().ToJObject(jValueHandler);
                 case HoconType.Array:
-                    return hoconValue.GetArray().ToJArray();
+                    return hoconValue.GetArray().ToJArray(jValueHandler);
                 case HoconType.Literal:
                     if (hoconValue.Count == 1)
                     {
                         var hoconElement = hoconValue[0];
-                        var hoconSubstitution = hoconElement as HoconSubstitution;
-                        if (hoconSubstitution != null)
+                        if (hoconElement is HoconSubstitution hoconSubstitution)
                         {
-                            return hoconSubstitution.ResolvedValue.ToJToken();
+                            return hoconSubstitution.ResolvedValue.ToJToken(jValueHandler);
                         }
 
-                        var hoconLiteral = hoconElement as HoconLiteral;
-                        if (hoconLiteral != null)
+                        if (hoconElement is HoconLiteral hoconLiteral)
                         {
-                            return hoconLiteral.ToJValue();
+                            return hoconLiteral.ToJValue(jValueHandler);
                         }
 
                         throw new InvalidOperationException($"Invalid Hocon element type when hocon type is Literal and has only one element: {hoconElement.GetType().FullName}");
                     }
                     else
                     {
-                        return JValue.CreateString(hoconValue.GetString());
+                        var jValue = JValue.CreateString(hoconValue.GetString());
+                        if (jValueHandler != null)
+                        {
+                            return jValueHandler(jValue);
+                        }
+                        else
+                        {
+                            return jValue;
+                        }
                     }
 
                 case HoconType.Empty:
@@ -62,7 +68,7 @@ namespace Hocon.Json
             }
         }
 
-        public static JObject ToJObject(this HoconObject hoconObject)
+        public static JObject ToJObject(this HoconObject hoconObject, Func<JValue, JValue>? jValueHandler = null)
         {
             if (hoconObject == null)
             {
@@ -73,7 +79,7 @@ namespace Hocon.Json
             foreach (var hoconField in hoconObject)
             {
                 var key = hoconField.Key;
-                var value = hoconField.Value.Value.ToJToken();
+                var value = hoconField.Value.Value.ToJToken(jValueHandler);
                 if (value != null)
                 {
                     jObject.Add(key, value);
@@ -83,7 +89,7 @@ namespace Hocon.Json
             return jObject;
         }
 
-        public static JArray ToJArray(this List<HoconValue> hoconValues)
+        public static JArray ToJArray(this List<HoconValue> hoconValues, Func<JValue, JValue>? jValueHandler = null)
         {
             if (hoconValues == null)
             {
@@ -93,7 +99,7 @@ namespace Hocon.Json
             var jArray = new JArray();
             foreach (var hoconValue in hoconValues)
             {
-                var item = hoconValue.ToJToken();
+                var item = hoconValue.ToJToken(jValueHandler);
                 if (item != null)
                 {
                     jArray.Add(item);
@@ -103,7 +109,7 @@ namespace Hocon.Json
             return jArray;
         }
 
-        public static JValue ToJValue(this HoconLiteral hoconLiteral)
+        public static JValue ToJValue(this HoconLiteral hoconLiteral, Func<JValue, JValue>? jValueHandler = null)
         {
             if (hoconLiteral == null)
             {
@@ -114,25 +120,41 @@ namespace Hocon.Json
             {
                 hoconLiteral,
             };
+
+            JValue jValue;
             switch (hoconLiteral.LiteralType)
             {
                 case HoconLiteralType.Null:
-                    return JValue.CreateNull();
+                    jValue = JValue.CreateNull();
+                    break;
                 case HoconLiteralType.Whitespace:
                 case HoconLiteralType.UnquotedString:
                 case HoconLiteralType.QuotedString:
                 case HoconLiteralType.TripleQuotedString:
-                    return JValue.CreateString(hoconValue.GetString());
+                    jValue = JValue.CreateString(hoconValue.GetString());
+                    break;
                 case HoconLiteralType.Bool:
-                    return new JValue(hoconValue.GetBoolean());
+                    jValue = new JValue(hoconValue.GetBoolean());
+                    break;
                 case HoconLiteralType.Long:
                 case HoconLiteralType.Hex:
                 case HoconLiteralType.Octal:
-                    return new JValue(hoconValue.GetLong());
+                    jValue = new JValue(hoconValue.GetLong());
+                    break;
                 case HoconLiteralType.Double:
-                    return new JValue(hoconValue.GetDouble());
+                    jValue = new JValue(hoconValue.GetDouble());
+                    break;
                 default:
                     throw new InvalidOperationException($"Unknown LiteralType: {hoconLiteral.LiteralType}");
+            }
+
+            if (jValueHandler != null)
+            {
+                return jValueHandler(jValue);
+            }
+            else
+            {
+                return jValue;
             }
         }
     }
