@@ -34,7 +34,7 @@ steps:
 - script: dotnet tool install --tool-path . dotnet-sonarscanner
   displayName: 'Install SonarScanner tool'
 
-- script: dotnet-sonarscanner begin /k:"iron9light_HOCON.Json" /o:"iron9light-github" /v:"$(Build.BuildNumber)" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$(sonar.token)" /d:sonar.cs.opencover.reportsPaths="$(Build.SourcesDirectory)/**/coverage.opencover.xml"
+- script: dotnet-sonarscanner begin /k:"iron9light_HOCON.Json" /o:"iron9light-github" /v:"$(Build.BuildNumber)" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$(sonar.token)" /d:sonar.cs.opencover.reportsPaths="$(Build.SourcesDirectory)/**/coverage.opencover.xml" /d:sonar.cs.vstest.reportsPaths="$(Agent.TempDirectory)/*.trx"
   displayName: 'SonarScanner begin'
 
 - script: dotnet build --configuration $(buildConfiguration)
@@ -45,7 +45,8 @@ steps:
   inputs:
     command: test
     projects: '**/*.sln'
-    arguments: '--configuration $(buildConfiguration) --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:UseSourceLink=true /p:Exclude="[xunit.*]*"'
+    arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat="opencover,cobertura" /p:UseSourceLink=true /p:Exclude="[xunit.*]*"'
+    nobuild: true
 
 - script: dotnet-sonarscanner end /d:sonar.login="$(sonar.token)"
   displayName: 'SonarScanner end'
