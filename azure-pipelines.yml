@@ -36,11 +36,11 @@ steps:
 
 - script: dotnet-sonarscanner begin /k:"iron9light_HOCON.Json" /o:"iron9light-github" /v:"$(Build.BuildNumber)" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$(sonar.token)" /d:sonar.cs.opencover.reportsPaths="$(Build.SourcesDirectory)/**/coverage.opencover.xml" /d:sonar.cs.vstest.reportsPaths="$(Agent.TempDirectory)/*.trx" /d:sonar.pullrequest.key=$(System.PullRequest.PullRequestNumber) /d:sonar.pullrequest.branch="$(System.PullRequest.SourceBranch)" /d:sonar.pullrequest.base="$(System.PullRequest.TargetBranch)" /d:sonar.pullrequest.github.repository="iron9light/HOCON.Json"
   displayName: 'SonarScanner begin'
-  condition: $[variables['System.PullRequest.SourceBranch']]
+  condition: variables['System.PullRequest.SourceBranch']
 
 - script: dotnet-sonarscanner begin /k:"iron9light_HOCON.Json" /o:"iron9light-github" /v:"$(Build.BuildNumber)" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$(sonar.token)" /d:sonar.cs.opencover.reportsPaths="$(Build.SourcesDirectory)/**/coverage.opencover.xml" /d:sonar.cs.vstest.reportsPaths="$(Agent.TempDirectory)/*.trx"
   displayName: 'SonarScanner begin'
-  condition: $[not(variables['System.PullRequest.SourceBranch'])]
+  condition: not(variables['System.PullRequest.SourceBranch'])
 
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
