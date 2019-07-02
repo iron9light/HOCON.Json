@@ -55,6 +55,8 @@ __tracer/
 
 # Tests
 TestResults/
+coverage.opencover.xml
+*.trx
 
 #Exclude nuget packages folders
 private/nuget/packages/
