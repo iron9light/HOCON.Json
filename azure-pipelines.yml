@@ -45,7 +45,7 @@ steps:
   inputs:
     command: test
     projects: '**/*.sln'
-    arguments: '--configuration $(buildConfiguration) --no-build /p:CollectCoverage=true /p:CoverletOutputFormat="\"opencover,cobertura\"" /p:Exclude="[xunit.*]*"'
+    arguments: '--configuration $(buildConfiguration) --no-build /p:CollectCoverage=true /p:CoverletOutputFormat="\"opencover,cobertura\"" /p:UseSourceLink=true /p:Exclude="[xunit.*]*"'
 
 - script: dotnet-sonarscanner end /d:sonar.login="$(sonar.token)"
   displayName: 'SonarScanner end'
