@@ -66,3 +66,9 @@ steps:
     pathToPublish: $(Build.ArtifactStagingDirectory)\artifacts
     artifactType: container
     artifactName: Packages
+
+- task: PublishCodeCoverageResults@1
+  displayName: Publish Coverage
+  inputs:
+    codeCoverageTool: cobertura
+    summaryFileLocation: $(Build.SourcesDirectory)/**/coverage.cobertura.xml
