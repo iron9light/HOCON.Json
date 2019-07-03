@@ -50,7 +50,7 @@ steps:
   inputs:
     command: test
     projects: '**/*.sln'
-    arguments: '--configuration $(buildConfiguration) --no-build /p:CollectCoverage=true /p:CoverletOutputFormat="\"opencover,cobertura\"" /p:Exclude="[xunit.*]*" /p:UseSourceLink=true'
+    arguments: '--configuration $(buildConfiguration) --no-build /p:CollectCoverage=true /p:CoverletOutputFormat="\"opencover,cobertura\"" /p:Exclude="[xunit.*]*"'
 
 - task: PowerShell@2
   displayName: Print opencover
