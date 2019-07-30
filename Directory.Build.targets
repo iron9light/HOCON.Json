@@ -1,10 +1,7 @@
 <Project>
   <PropertyGroup Condition=" '$(IsTestProject)' == 'true' ">
+    <CoverletOutputFormat>opencover,cobertura</CoverletOutputFormat>
     <Exclude>[xunit.*]*</Exclude>
     <ExcludeByAttribute>ObsoleteAttribute,GeneratedCodeAttribute,CompilerGeneratedAttribute</ExcludeByAttribute>
   </PropertyGroup>
-
-  <ItemGroup Condition=" '$(IsTestProject)' == 'true' ">
-    <PackageReference Include="coverlet.msbuild" Version="2.6.3" PrivateAssets="All"/>
-  </ItemGroup>
 </Project>
