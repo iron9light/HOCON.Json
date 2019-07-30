@@ -79,17 +79,7 @@ namespace Hocon.Json
             foreach (var hoconField in hoconObject)
             {
                 var key = hoconField.Key;
-                JToken? value;
-
-                var fieldHoconObject = hoconField.Value.GetObject();
-                if (fieldHoconObject != null)
-                {
-                    value = fieldHoconObject.ToJObject(jValueHandler);
-                }
-                else
-                {
-                    value = hoconField.Value.Value.ToJToken(jValueHandler);
-                }
+                var value = hoconField.Value.Value.ToJToken(jValueHandler);
 
                 if (value != null)
                 {

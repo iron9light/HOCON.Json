@@ -10,13 +10,14 @@ trigger:
     - rel/v*
   paths:
     exclude:
-    - '**/*.md'
+    - '*.md'
 
 pool:
   vmImage: 'windows-latest'
 
 variables:
   buildConfiguration: 'Release'
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
 
 steps:
 - task: UseDotNet@2
@@ -50,7 +51,7 @@ steps:
   inputs:
     command: test
     projects: '**/*.sln'
-    arguments: '--configuration $(buildConfiguration) --no-build /p:CollectCoverage=true /p:CoverletOutputFormat="\"opencover,cobertura\"" /p:Exclude="[xunit.*]*"'
+    arguments: '--configuration $(buildConfiguration) --no-build /p:CollectCoverage=true'
 
 - script: dotnet-sonarscanner end /d:sonar.login="$(sonar.token)"
   displayName: 'SonarScanner end'

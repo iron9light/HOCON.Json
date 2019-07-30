@@ -3,6 +3,7 @@
 *.user
 *.vs/
 *.log
+*.vscode/
 
 # Build results
 [Dd]ebug/
