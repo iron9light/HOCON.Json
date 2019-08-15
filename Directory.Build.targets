@@ -1,7 +1,0 @@
-<Project>
-  <PropertyGroup Condition=" '$(IsTestProject)' == 'true' ">
-    <CoverletOutputFormat>opencover,cobertura</CoverletOutputFormat>
-    <Exclude>[xunit.*]*</Exclude>
-    <ExcludeByAttribute>ObsoleteAttribute,GeneratedCodeAttribute,CompilerGeneratedAttribute</ExcludeByAttribute>
-  </PropertyGroup>
-</Project>
