@@ -1,5 +1,5 @@
 using System.IO;
-
+using FluentAssertions;
 using Newtonsoft.Json.Linq;
 
 using Xunit;
@@ -28,13 +28,13 @@ namespace Hocon.Json.Tests
             var hoconPath = $@"data\{name}.conf";
             var hoconRoot = Parser.Parse(File.ReadAllText(hoconPath));
             var jToken = hoconRoot.ToJToken();
-            Assert.NotNull(jToken);
+            jToken.Should().NotBeNull();
             var json = jToken!.ToString(Newtonsoft.Json.Formatting.Indented);
             _output.WriteLine(json);
 
             var jsonPath = $@"data\{name}.json";
             var expected = JToken.Parse(File.ReadAllText(jsonPath));
-            Assert.Equal(expected, jToken);
+            jToken.Should().BeEquivalentTo(expected);
         }
     }
 }
