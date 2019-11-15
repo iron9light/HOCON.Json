@@ -56,7 +56,7 @@ steps:
 - script: dotnet-sonarscanner end /d:sonar.login="$(sonar.token)"
   displayName: 'SonarScanner end'
 
-- task: PublishCodeCoverageResults@2
+- task: PublishCodeCoverageResults@1
   displayName: Publish Coverage
   inputs:
     summaryFileLocation: $(Build.SourcesDirectory)/**/coverage.cobertura.xml
