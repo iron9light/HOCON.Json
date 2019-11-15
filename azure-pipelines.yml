@@ -19,12 +19,6 @@ variables:
 
 steps:
 - task: UseDotNet@2
-  displayName: 'Use .NET Core 2.1.x'
-  inputs:
-    packageType: sdk
-    version: 2.1.x
-
-- task: UseDotNet@2
   displayName: 'Use .NET Core 3.x'
   inputs:
     packageType: sdk
@@ -36,7 +30,7 @@ steps:
 - script: nbgv cloud
   displayName: Set Version
 
-- script: dotnet tool install --tool-path . dotnet-sonarscanner --version 4.7.1
+- script: dotnet tool install --tool-path . dotnet-sonarscanner
   displayName: 'Install SonarScanner tool'
 
 - script: dotnet-sonarscanner begin /k:"$(sonarProjectKey)" /o:"iron9light-github" /v:"$(Build.BuildNumber)" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$(sonar.token)" /d:sonar.cs.opencover.reportsPaths="$(Build.SourcesDirectory)/**/coverage.opencover.xml" /d:sonar.cs.vstest.reportsPaths="$(Agent.TempDirectory)/*.trx" /d:sonar.pullrequest.key=$(System.PullRequest.PullRequestNumber) /d:sonar.pullrequest.branch="$(System.PullRequest.SourceBranch)" /d:sonar.pullrequest.base="$(System.PullRequest.TargetBranch)" /d:sonar.pullrequest.github.repository="$(sonarPullrequestGithubRepository)"
