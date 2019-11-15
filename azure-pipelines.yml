@@ -56,6 +56,11 @@ steps:
 - script: dotnet-sonarscanner end /d:sonar.login="$(sonar.token)"
   displayName: 'SonarScanner end'
 
+- task: PublishCodeCoverageResults@2
+  displayName: Publish Coverage
+  inputs:
+    summaryFileLocation: $(Build.SourcesDirectory)/**/coverage.cobertura.xml
+
 - task: DotNetCoreCLI@2
   displayName: Pack
   inputs:
@@ -65,6 +70,7 @@ steps:
     packDirectory: $(Build.ArtifactStagingDirectory)\artifacts
     nobuild: true
     verbosityPack: Minimal
+  condition: not(variables['System.PullRequest.SourceBranch'])
 
 - task: PublishBuildArtifacts@1
   displayName: Publish Package Artifacts
@@ -72,9 +78,13 @@ steps:
     pathToPublish: $(Build.ArtifactStagingDirectory)\artifacts
     artifactType: container
     artifactName: Packages
+  condition: not(variables['System.PullRequest.SourceBranch'])
 
-- task: PublishCodeCoverageResults@1
-  displayName: Publish Coverage
+- task: NuGetCommand@2
+  displayName: 'GitHub packages NuGet push'
   inputs:
-    codeCoverageTool: cobertura
-    summaryFileLocation: $(Build.SourcesDirectory)/**/coverage.cobertura.xml
+    command: push
+    packagesToPush: '**/*.nupkg;**/*.snupkg'
+    nuGetFeedType: external
+    publishFeedCredentials: GitHubPackagesNuGetConnection
+  condition: not(variables['System.PullRequest.SourceBranch'])
