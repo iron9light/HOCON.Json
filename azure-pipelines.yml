@@ -68,7 +68,7 @@ steps:
     command: pack
     packagesToPack: '**/*.csproj'
     configuration: $(BuildConfiguration)
-    packDirectory: $(Build.ArtifactStagingDirectory)\artifacts
+    packDirectory: $(Build.ArtifactStagingDirectory)/artifacts
     nobuild: true
     verbosityPack: Minimal
   condition: not(variables['System.PullRequest.SourceBranch'])
@@ -76,7 +76,7 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: Publish Package Artifacts
   inputs:
-    pathToPublish: $(Build.ArtifactStagingDirectory)\artifacts
+    pathToPublish: $(Build.ArtifactStagingDirectory)/artifacts
     artifactType: container
     artifactName: Packages
   condition: not(variables['System.PullRequest.SourceBranch'])
@@ -85,7 +85,7 @@ steps:
   displayName: 'GitHub packages NuGet push'
   inputs:
     command: push
-    packagesToPush: '**/*.nupkg;**/*.snupkg'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;$(Build.ArtifactStagingDirectory)/**/*.snupkg'
     nuGetFeedType: external
     publishFeedCredentials: GitHubPackagesNuGetConnection
   condition: not(variables['System.PullRequest.SourceBranch'])
