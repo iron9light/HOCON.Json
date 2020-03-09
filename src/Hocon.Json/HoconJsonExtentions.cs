@@ -30,7 +30,9 @@ namespace Hocon.Json
                     return hoconValue.GetObject().ToJObject(jValueHandler);
                 case HoconType.Array:
                     return hoconValue.GetArray().ToJArray(jValueHandler);
-                case HoconType.Literal:
+                case HoconType.String:
+                case HoconType.Boolean:
+                case HoconType.Number:
                     if (hoconValue.Count == 1)
                     {
                         var hoconElement = hoconValue[0];
@@ -90,7 +92,7 @@ namespace Hocon.Json
             return jObject;
         }
 
-        public static JArray ToJArray(this List<HoconValue> hoconValues, Func<JValue, JValue>? jValueHandler = null)
+        public static JArray ToJArray(this IList<HoconValue> hoconValues, Func<JValue, JValue>? jValueHandler = null)
         {
             if (hoconValues == null)
             {

@@ -1,5 +1,7 @@
 using System.IO;
+
 using FluentAssertions;
+
 using Newtonsoft.Json.Linq;
 
 using Xunit;
@@ -26,7 +28,7 @@ namespace Hocon.Json.Tests
         public void ToJsonTest(string name)
         {
             var hoconPath = $@"data\{name}.conf";
-            var hoconRoot = Parser.Parse(File.ReadAllText(hoconPath));
+            var hoconRoot = HoconParser.Parse(File.ReadAllText(hoconPath));
             var jToken = hoconRoot.ToJToken();
             jToken.Should().NotBeNull();
             var json = jToken!.ToString(Newtonsoft.Json.Formatting.Indented);
