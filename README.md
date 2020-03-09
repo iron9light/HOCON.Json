@@ -10,6 +10,6 @@ Convert Lightbend's [HOCON](https://github.com/akkadotnet/HOCON) (Human-Optimize
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=iron9light_HOCON.Json&metric=security_rating)](https://sonarcloud.io/dashboard?id=iron9light_HOCON.Json)
 
 ```csharp
-var hoconRoot = Parser.Parse(hoconString);
+var hoconRoot = HoconParser.Parse(hoconString);
 var jToken = hoconRoot.ToJToken(); // Newtonsoft.Json.Linq.JToken object
 ```
