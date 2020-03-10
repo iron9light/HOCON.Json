@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.3;netstandard2.0</TargetFrameworks>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <PackageTags>HOCON;JSON</PackageTags>
     <Description>Convert Lightbend's HOCON (Human-Optimized Object Configuration Notation) to Json</Description>
   </PropertyGroup>
