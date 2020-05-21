@@ -55,6 +55,12 @@ steps:
     arguments: '--configuration $(buildConfiguration) --no-build /p:CollectCoverage=true'
     workingDirectory: src
 
+- task: PowerShell@2
+  displayName: Print opencover
+  inputs:
+    targetType: inline
+    script: Get-Content -Path $(Build.SourcesDirectory)/src/Hocon.Json.Tests/coverage.opencover.xml
+
 - script: dotnet-sonarscanner end /d:sonar.login="$(sonar.token)"
   displayName: 'SonarScanner end'
 
