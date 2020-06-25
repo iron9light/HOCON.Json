@@ -4,7 +4,15 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageTags>HOCON;JSON</PackageTags>
     <Description>Convert Lightbend's HOCON (Human-Optimized Object Configuration Notation) to Json</Description>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Hocon" Version="2.0.3" />
